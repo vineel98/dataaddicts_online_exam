@@ -1,0 +1,616 @@
+<html>
+<head>
+    
+    <style>
+        .r1
+        {
+            visibility:hidden;
+        }
+    
+	body{
+                background-image:url("https://s3.amazonaws.com/spoonflower/public/design_thumbnails/0464/7061/rAlpine_Classic_Solid_Dark_Blue-01_shop_preview.png");
+                background-repeat:no-repeat;
+                background-size:cover;
+                color:white;
+            }
+            .btn.btn-warning:hover {
+                 box-shadow: 2px 1px 2px 3px #99ccff;
+                 background:#5900a6;
+                color:#fff;
+                transition: background-color 1.15s ease-in-out,border-color 1.15s ease-in-out,box-shadow 1.15s ease-in-out;
+	
+   </style>
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase.js"></script>
+    <script>
+    var config = {
+    apiKey: "AIzaSyAvmJMrXIrDlBfqtND1ft3ohNtHiwzYBwk",
+    authDomain: "dataaddicts-123.firebaseapp.com",
+    databaseURL: "https://dataaddicts-123.firebaseio.com",
+    projectId: "dataaddicts-123",
+    storageBucket: "dataaddicts-123.appspot.com",
+    messagingSenderId: "237372964116"
+  };
+  firebase.initializeApp(config);
+  </script>
+<script>
+var a=[];
+var b=[];
+var c=0;
+var flag=0;
+var sc=0;
+var text;var arr;
+
+history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+function find()
+{
+    var cv=0
+    for( var  j=0;j<c-1;j++)
+    {
+	if(a[c-1]==a[j])
+	{	
+		flag=0;
+		cv=1;
+		
+	}
+    }
+    if(cv==0)
+    {
+        flag=1;
+    }
+}
+var total_seconds=(60*10)+10;
+var c_min=parseInt(total_seconds/60);
+var c_sec=parseInt(total_seconds%60);
+    function checktime( )
+    {
+        document.getElementById("quiz-time-left").innerHTML='TIMER: ' + c_min + 'minutes ' +c_sec +'seconds';
+         if(total_seconds <=0)
+         {
+            window.alert("time out");
+            ansCrossCheck();
+         }
+        else
+        {
+            total_seconds=total_seconds-1;
+            c_min=parseInt(total_seconds/60);
+            c_sec=parseInt(total_seconds%60);
+            setTimeout("checktime( )",1000);
+        }
+    }
+    
+function ansCrossCheck()
+{
+    var ti_min=c_min;
+    var ti_sec=c_sec;
+    for(var i=0;i<15;i++)
+    {
+        var x=document.getElementsByName(String(i+1));
+        for(var j=0;j<x.length;j++)
+        {
+            if(x[j].checked)
+            {
+                if(b[i]==x[j].value)
+                {
+                    sc=sc+1;
+                }
+                break;
+            }
+        }
+    }
+    var database= firebase.database();
+    var pref=database.ref("result");
+    var data={
+           name1:arr[0],
+           name2:arr[2],
+           email:arr[6],
+	   score:sc,
+           time:ti_min+" min "+ti_sec+" sec"
+	};
+ pref.push(data);
+    document.getElementById("body").removeChild(document.getElementById("table"));
+    document.getElementById("body").removeChild(document.getElementById("sub"));
+    document.getElementById("body").removeChild(document.getElementById("quiz-time-left"));
+    document.getElementById("body").removeChild(document.getElementById("h1"));
+    document.getElementById("body").removeChild(document.getElementById("h3"));
+    var h1=document.createElement("h2");
+    document.getElementById("body").appendChild(h1);
+    h1.setAttribute("id","myh1");
+    var text=document.createTextNode("Hope You enjoyed the quiz!!! We will be notifying you the further updates .");
+    document.getElementById("myh1").appendChild(text);
+    h1.setAttribute("align","center");
+   
+    h1=document.createElement("h3");
+    document.getElementById("body").appendChild(h1);
+    h1.setAttribute("id","myh2");
+    text=document.createTextNode("Thank You!");
+    document.getElementById("myh2").appendChild(text);
+    h1.setAttribute("align","center");
+    
+    h1=document.createElement("h3");
+    document.getElementById("body").appendChild(h1);
+    h1.setAttribute("id","myh3");
+    text=document.createTextNode("DATA ADDICTS");
+    document.getElementById("myh3").appendChild(text);
+    h1.setAttribute("align","center");
+    
+    
+    
+    p1=document.createElement("p");
+    document.getElementById("body").appendChild(p1);
+    p1.setAttribute("id","myp1");
+    
+     h1=document.createElement("h3");
+    document.getElementById("body").appendChild(h1);
+    //document.getElementById("myp1").appendChild(h1);
+    h1.setAttribute("id","myh4");
+    text=document.createTextNode("Follow Us On Facebook");
+    document.getElementById("myh4").appendChild(text);
+    h1.setAttribute("align","left");
+        
+    var a=document.createElement("a");
+    document.getElementById("body").appendChild(a);
+    a.setAttribute("href","https://m.facebook.com/Cbit-dataaddicts-1676860765774873/?modal=admin_todo_tour");
+    a.setAttribute("id","atag");
+    a.setAttribute("target","_blank");
+    var img =document.createElement("img");
+    document.getElementById("atag").appendChild(img);
+    img.setAttribute("src","fb.jpg");
+    img.setAttribute("width","70px");
+    img.setAttribute("height","70px");
+    
+    h1=document.createElement("h3");
+    document.getElementById("body").appendChild(h1);
+    //document.getElementById("myp1").appendChild(h1);
+    h1.setAttribute("id","myh5");
+    text=document.createTextNode("dataaddictits@gmail.com");
+    document.getElementById("myh5").appendChild(text);
+    h1.setAttribute("align","left");
+    
+    
+    var img =document.createElement("img");
+    document.getElementById("body").appendChild(img);
+    img.setAttribute("src","gmail.jpg");
+    img.setAttribute("width","70px");
+    img.setAttribute("height","70px");
+
+     h1=document.createElement("h3");
+    document.getElementById("body").appendChild(h1);
+    h1.setAttribute("id","myh6");
+    text=document.createTextNode("Site Developed By :");
+    document.getElementById("myh6").appendChild(text);
+    h1.setAttribute("align","left");
+   
+     h1=document.createElement("h5");
+    document.getElementById("body").appendChild(h1);
+    h1.setAttribute("id","myh7");
+    text=document.createTextNode("Shivani 7396824724 ");
+    document.getElementById("myh7").appendChild(text);
+    h1.setAttribute("align","left");
+
+   h1=document.createElement("h5");
+    document.getElementById("body").appendChild(h1);
+    h1.setAttribute("id","myh8");
+    text=document.createTextNode("Mrudula 9603469277 ");
+    document.getElementById("myh8").appendChild(text);
+    h1.setAttribute("align","left");
+h1=document.createElement("h5");
+    document.getElementById("body").appendChild(h1);
+    h1.setAttribute("id","myh9");
+    text=document.createTextNode("Tanuj  8464996832 ");
+    document.getElementById("myh9").appendChild(text);
+    h1.setAttribute("align","left");
+h1=document.createElement("h5");
+    document.getElementById("body").appendChild(h1);
+    h1.setAttribute("id","myh10");
+    text=document.createTextNode("Vineel 7396568331");
+    document.getElementById("myh10").appendChild(text);
+    h1.setAttribute("align","left");
+  
+    
+    
+    
+}
+
+function questionPrint()
+{
+     text=location.search.split('text=')[1];
+     arr=text.split("?"); 
+     v();    
+ }
+     
+ function v()
+ {
+      document.getElementById("sub").style.visibility='hidden';
+     var database=firebase.database();
+     var studentref=database.ref("student");
+     var obj;var s;
+     
+      studentref.once('value',function(snap)
+      {
+         var vin=0;
+         var obj=snap.val();
+          var s=Object.keys(obj);
+          for(var i=0;i<s.length;i++)
+          {
+              if((obj[s[i]].email==arr[6])||obj[s[i]].phone==arr[4])
+              {
+                  vin=1;
+                  break;
+              }
+          }  
+        
+        if(vin==1)
+        {
+           window.alert("Test Submitted .For any queries Contact charitha:7036093933");
+        }
+        else
+        {
+            var student={name1:arr[0],
+                name2:arr[2],
+	   email:arr[6],
+	   phone:arr[4],
+	   year:arr[8],
+	   college:arr[10]
+	}; 
+             studentref.push(student);
+            for(var i=0;i<15;i++)
+            {
+                flag=0;
+
+                c++;
+                while(flag==0)
+                {
+                    a[i]=parseInt(String(Math.ceil(Math.random()*65)));
+                    find();   
+                }
+                
+             }
+             var loaded=0;
+             var database= firebase.database();
+             var pref=database.ref("exam");
+             pref.on("value",function(data){
+             x=data.val();
+             var keys=Object.keys(x);
+             var uv=document.createElement("table");
+             uv.setAttribute("id","mytab");
+             document.body.appendChild(uv);
+             for(var i=0;i<15;i++)
+             {
+                var i1=x[keys[a[i]-1]].Q;
+                var j1=x[keys[a[i]-1]].option1;
+                var k1=x[keys[a[i]-1]].option2;
+                var l1=x[keys[a[i]-1]].option3;
+                var m1=x[keys[a[i]-1]].option4;
+                b[i]=x[keys[a[i]-1]].A;
+                if(i == 10)
+		{
+		document.getElementById(String(i+1)).innerHTML=String(i+1)+"."+i1;
+                document.getElementById(String(i+1)+"a"+String(i+1)).innerHTML=j1;
+                document.getElementById(String(i+1)+"b"+String(i+1)).innerHTML=k1;
+                document.getElementById(String(i+1)+"c"+String(i+1)).innerHTML=l1;
+                document.getElementById(String(i+1)+"d"+String(i+1)).innerHTML=m1;
+               
+		}
+		else
+		{
+		document.getElementById(String(i+1)).innerHTML=String(i+1)+"."+i1;
+                document.getElementById(String(i+1)+"a").innerHTML=j1;
+                document.getElementById(String(i+1)+"b").innerHTML=k1;
+                document.getElementById(String(i+1)+"c").innerHTML=l1;
+                document.getElementById(String(i+1)+"d").innerHTML=m1;
+		}
+
+                document.getElementById(String(i+1)+String(i+1)+"a").value=j1;
+                document.getElementById(String(i+1)+String(i+1)+"b").value=k1;
+                document.getElementById(String(i+1)+String(i+1)+"c").value=l1;
+                document.getElementById(String(i+1)+String(i+1)+"d").value=m1;
+
+                document.getElementById(String(i+1)+String(i+1)+"a").style.visibility='visible';
+                document.getElementById(String(i+1)+String(i+1)+"b").style.visibility='visible';
+                document.getElementById(String(i+1)+String(i+1)+"c").style.visibility='visible';
+                document.getElementById(String(i+1)+String(i+1)+"d").style.visibility='visible';
+                 if(i==14)
+                {
+                    document.getElementById("sub").style.visibility='visible';
+                    loaded=1;
+                }
+            
+               
+            }
+        },function(error){console.log(error.message)});
+ 
+        if(loaded=1)
+        {
+            setTimeout("checktime( )",1000);
+        }
+  }
+   
+        });
+ }
+window.onload=questionPrint;
+</script>
+</head>
+<body id="body" oncontextmenu="return false;">
+    <h1 align="center" id="h1">Round-1</h1>
+    <h3 align="center" id="h3"> Exam will be automatically submitted after 10 minutes 10 seconds.It may take some time to load test. If you have any problem in submitting the test contact Charitha: 7036093933.</h3>
+<h3 style="color:red" align="center">NOTE: Closing the browser or refreshing the page in between the test may disqualify you</h3>
+    <div id="quiz-time-left" align="right"></div>
+ <table id="table">
+            <tr>
+                <td>
+                    <p id="1"></p>
+                    <input type="radio" id="11a" class="r1" name="1"   value="" > 
+                    <span id="1a"></span>
+                    <br>
+                    <input type="radio" id="11b" class="r1" name="1" value=""> 
+                    <span id="1b"></span>
+                    <br>
+                    <input type="radio" id="11c"  class="r1" name="1" value=""> 
+                    <span id="1c"></span>
+                    <br>
+                    <input type="radio" id="11d"  class="r1" name="1" value=""> 
+                    <span id="1d"></span>
+                    
+                </td></tr>
+            <tr>
+            <td>
+                    <p id="2"></p>
+                    <input type="radio" id="22a" class="r1" name="2" value=""> 
+                    <span id="2a"></span>
+                    <br>
+                    <input type="radio" id="22b" class="r1" name="2" value=""> 
+                    <span id="2b"></span>
+                    <br>
+                    <input type="radio" id="22c" class="r1" name="2" value=""> 
+                    <span id="2c"></span>
+                    <br>
+                    <input type="radio" id="22d" class="r1" name="2" value=""> 
+                    <span id="2d"></span>
+                    
+                </td>
+                
+            </tr>
+            
+             <tr>
+            <td>
+                    <p id="3"></p>
+                    <input type="radio" id="33a" class="r1" name="3" value=""> 
+                    <span id="3a"></span>
+                    <br>
+                    <input type="radio" id="33b" class="r1" name="3" value=""> 
+                    <span id="3b"></span>
+                    <br>
+                    <input type="radio" id="33c" class="r1" name="3" value=""> 
+                    <span id="3c"></span>
+                    <br>
+                    <input type="radio" id="33d" class="r1" name="3" value=""> 
+                    <span id="3d"></span>
+                    
+                </td>
+                
+            </tr>
+            
+            <tr>
+            <td>
+                    <p id="4"></p>
+                    <input type="radio" id="44a" class="r1" name="4" value=""> 
+                    <span id="4a"></span>
+                    <br>
+                    <input type="radio" id="44b"  class="r1" name="4" value=""> 
+                    <span id="4b"></span>
+                    <br>
+                    <input type="radio" id="44c" class="r1" name="4" value=""> 
+                    <span id="4c"></span>
+                    <br>
+                    <input type="radio" id="44d" class="r1" name="4" value=""> 
+                    <span id="4d"></span>
+                    
+                </td>
+                
+            </tr>
+            
+            <tr>
+            <td>
+                    <p id="5"></p>
+                    <input type="radio" id="55a" class="r1" name="5" value=""> 
+                    <span id="5a"></span>
+                    <br>
+                    <input type="radio" id="55b" class="r1" name="5" value=""> 
+                    <span id="5b"></span>
+                    <br>
+                    <input type="radio" id="55c" class="r1" name="5" value=""> 
+                    <span id="5c"></span>
+                    <br>
+                    <input type="radio" id="55d" class="r1" name="5" value=""> 
+                    <span id="5d"></span>
+                    
+                </td>
+                
+            </tr>
+	    <tr>
+            <td>
+                    <p id="6"></p>
+                    <input type="radio" id="66a" class="r1" name="6" value=""> 
+                    <span id="6a"></span>
+                    <br>
+                    <input type="radio" id="66b" class="r1" name="6" value=""> 
+                    <span id="6b"></span>
+                    <br>
+                    <input type="radio" id="66c" class="r1" name="6" value=""> 
+                    <span id="6c"></span>
+                    <br>
+                    <input type="radio" id="66d" class="r1" name="6" value=""> 
+                    <span id="6d"></span>
+                    
+                </td>
+                
+            </tr>
+             <tr>
+            <td>
+                    <p id="7"></p>
+                    <input type="radio" id="77a" class="r1" name="7" value=""> 
+                    <span id="7a"></span>
+                    <br>
+                    <input type="radio" id="77b" class="r1" name="7" value=""> 
+                    <span id="7b"></span>
+                    <br>
+                    <input type="radio" id="77c" class="r1" name="7" value=""> 
+                    <span id="7c"></span>
+                    <br>
+                    <input type="radio" id="77d" class="r1" name="7" value=""> 
+                    <span id="7d"></span>
+                    
+                </td>
+                
+            </tr>
+	     <tr>
+            <td>
+                    <p id="8"></p>
+                    <input type="radio" id="88a" class="r1" name="8" value=""> 
+                    <span id="8a"></span>
+                    <br>
+                    <input type="radio" id="88b" class="r1" name="8" value=""> 
+                    <span id="8b"></span>
+                    <br>
+                    <input type="radio" id="88c" class="r1" name="8" value=""> 
+                    <span id="8c"></span>
+                    <br>
+                    <input type="radio" id="88d" class="r1" name="8" value=""> 
+                    <span id="8d"></span>
+                    
+                </td>
+                
+            </tr>
+             <tr>
+            <td>
+                    <p id="9"></p>
+                    <input type="radio" id="99a" class="r1" name="9" value=""> 
+                    <span id="9a"></span>
+                    <br>
+                    <input type="radio" id="99b" class="r1" name="9" value=""> 
+                    <span id="9b"></span>
+                    <br>
+                    <input type="radio" id="99c" class="r1" name="9" value=""> 
+                    <span id="9c"></span>
+                    <br>
+                    <input type="radio" id="99d" class="r1" name="9" value=""> 
+                    <span id="9d"></span>
+                    
+                </td>
+                
+            </tr>
+             <tr>
+            <td>
+                    <p id="10"></p>
+                    <input type="radio" id="1010a" class="r1" name="10" value=""> 
+                    <span id="10a"></span>
+                    <br>
+                    <input type="radio" id="1010b" class="r1" name="10" value=""> 
+                    <span id="10b"></span>
+                    <br>
+                    <input type="radio" id="1010c" class="r1" name="10" value=""> 
+                    <span id="10c"></span>
+                    <br>
+                    <input type="radio" id="1010d" class="r1" name="10" value=""> 
+                    <span id="10d"></span>
+                    
+                </td>
+                
+            </tr>
+             <tr>
+            <td>
+                    <p id="11"></p>
+                    <input type="radio" id="1111a" class="r1" name="11" value=""> 
+                    <span id="11a11"></span>
+                    <br>
+                    <input type="radio" id="1111b" class="r1" name="11" value=""> 
+                    <span id="11b11"></span>
+                    <br>
+                    <input type="radio" id="1111c" class="r1" name="11" value=""> 
+                    <span id="11c11"></span>
+                    <br>
+                    <input type="radio" id="1111d" class="r1" name="11" value=""> 
+                    <span id="11d11"></span>
+                    
+                </td>
+                
+            </tr>
+             <tr>
+            <td>
+                    <p id="12"></p>
+                    <input type="radio" id="1212a" class="r1" name="12" value=""> 
+                    <span id="12a"></span>
+                    <br>
+                    <input type="radio" id="1212b" class="r1" name="12" value=""> 
+                    <span id="12b"></span>
+                    <br>
+                    <input type="radio" id="1212c" class="r1" name="12" value=""> 
+                    <span id="12c"></span>
+                    <br>
+                    <input type="radio" id="1212d" class="r1" name="12" value=""> 
+                    <span id="12d"></span>
+                    
+                </td>
+                
+            </tr>
+             <tr>
+            <td>
+                    <p id="13"></p>
+                    <input type="radio" id="1313a" class="r1" name="13" value=""> 
+                    <span id="13a"></span>
+                    <br>
+                    <input type="radio" id="1313b" class="r1" name="13" value=""> 
+                    <span id="13b"></span>
+                    <br>
+                    <input type="radio" id="1313c" class="r1" name="13" value=""> 
+                    <span id="13c"></span>
+                    <br>
+                    <input type="radio" id="1313d" class="r1" name="13" value=""> 
+                    <span id="13d"></span>
+                    
+                </td>
+                
+            </tr>
+	     <tr>
+            <td>
+                    <p id="14"></p>
+                    <input type="radio" id="1414a" class="r1" name="14" value=""> 
+                    <span id="14a"></span>
+                    <br>
+                    <input type="radio" id="1414b" class="r1" name="14" value=""> 
+                    <span id="14b"></span>
+                    <br>
+                    <input type="radio" id="1414c" class="r1" name="14" value=""> 
+                    <span id="14c"></span>
+                    <br>
+                    <input type="radio" id="1414d" class="r1" name="14" value=""> 
+                    <span id="14d"></span>
+                    
+                </td>
+                
+            </tr>
+	     <tr>
+            <td>
+                    <p id="15"></p>
+                    <input type="radio" id="1515a" class="r1" name="15" value=""> 
+                    <span id="15a"></span>
+                    <br>
+                    <input type="radio" id="1515b" class="r1" name="15" value=""> 
+                    <span id="15b"></span>
+                    <br>
+                    <input type="radio" id="1515c" class="r1" name="15" value=""> 
+                    <span id="15c"></span>
+                    <br>
+                    <input type="radio" id="1515d" class="r1" name="15" value=""> 
+                    <span id="15d"></span>
+                    
+                </td>
+                
+            </tr>
+         </table>
+<input type="button" id="sub" class="btn btn-warning" value="submit test" onclick="ansCrossCheck()">
+</body>
+</html>
